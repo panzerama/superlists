@@ -59,18 +59,18 @@ class NewVisitorTest(LiveServerTestCase):
 
 		# Now a new user, Francis, comes along to the site.
 
-		# We use a new broswer session to make sure no info leaks
-		self.broswer.quit()
-		self.broswer = webdriver.Firefox()
+		# We use a new browser session to make sure no info leaks
+		self.browser.quit()
+		self.browser = webdriver.Firefox()
 
 		# Francis visits the home page. no sign of edith's list
-		self.broswer.get(self.live_server_url)
-		page_text = self.broswer.find_elements_by_tag_name('body').text
+		self.browser.get(self.live_server_url)
+		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Buy peacock feathers', page_text)
 		self.assertNotIn('make a fly', page_text)
 
 		# Francis starts a new list with a new item.
-		inputbox = self.broswer.find_elements_by_id('id_new_item')
+		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Buy milk')
 		inputbox.send_keys(Keys.ENTER)
 
@@ -80,7 +80,7 @@ class NewVisitorTest(LiveServerTestCase):
 		self.assertNotEqual(francis_list_url, edith_list_url)
 
 		#still no trace of edith's list
-		page_text = self.broswer.find_elements_by_tag_name('body').text
+		page_text = self.browser.find_elements_by_tag_name('body').text
 		self.assertNotIn('Buy peacock feathers', page_text)
 		self.assertNotIn('make a fly', page_text)
 
