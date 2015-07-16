@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
 	def setUp(self):
 		self.browser = webdriver.Firefox()
@@ -100,7 +100,7 @@ class NewVisitorTest(LiveServerTestCase):
 		)
 
 		# she starts a new list and finds that it's nicely centered as well
-		inputbox.sent_keys('testing \n')
+		inputbox.send_keys('testing \n')
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		self.assertAlmostEqual(
 			inputbox.location['x'] + inputbox.size['width']/2,
