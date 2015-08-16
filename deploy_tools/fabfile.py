@@ -1,8 +1,8 @@
-from fabric.contrib.files import apend, exists, sed
+from fabric.contrib.files import append, exists, sed
 from fabric.api import env, local, run
 import random
 
-REPO_URL = 'https://github.com/panzer/superlists.git'
+REPO_URL = 'https://github.com/panzerama/superlists.git'
 
 def deploy():
 	site_folder = '/home/%s/sites/%s' % (env.user, env.host)
@@ -26,7 +26,7 @@ def _get_latest_source(source_folder):
 	current_commit = local("git log -n 1 --format=%H", capture=True)
 	run('cd %s && git reset --hard %s' % (source_folder, current_commit))
 
-def _update_settings(source_folder, env.host):
+def _update_settings(source_folder, site_name):
 	settings_path = source_folder + '/superlists/settings.py'
 	sed(settings_path, "DEBUG = True", "DEBUG = False") 
 	sed(settings_path,
